@@ -16,10 +16,6 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname + '/public/notes.html'))
 })
 
-app.post('/api/notes', (req, res) => {
-    
-})
-
 app.listen(PORT, () => {
     console.log(`listening on http://localhost:${PORT}`)
 })
