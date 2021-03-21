@@ -32,6 +32,7 @@ app.post('/api/notes', (req, res) => {
             console.log("new note saved")
         })
     })
+    res.send()
 });
 
 app.delete('/api/notes', (req, res) => {
