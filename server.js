@@ -16,11 +16,25 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname + '/public/notes.html'));
 });
 
-// app.get('/api/notes', (req, res) => {
-//     res.sendFile(path.join(__dirname + '/db/db.json'))
-// });
+app.get('/api/notes', (req, res) => {
+    res.sendFile(path.join(__dirname + '/db/db.json'));
+});
     
 app.post('/api/notes', (req, res) => {
+    fs.readFile(path.join(__dirname + '/db/db.json'), 'utf-8', (err, noteObj) => {
+        let notes = JSON.parse(noteObj)
+        let note = req.body
+        note.id = Math.random()
+        notes.push(note)
+
+        fs.writeFile(__dirname + '/db/db.json', JSON.stringify(notes), 'utf-8', (err) => {
+            if (err) console.log(err);
+            console.log("new note saved")
+        })
+    })
+});
+
+app.delete('/api/notes', (req, res) => {
 
 });
 
