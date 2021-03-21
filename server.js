@@ -35,8 +35,22 @@ app.post('/api/notes', (req, res) => {
     res.send()
 });
 
-app.delete('/api/notes', (req, res) => {
+app.delete('/api/notes/:id', (req, res) => {
+    fs.readFile(path.join(__dirname + '/db/db.json'), 
+    'utf-8', (err, noteObj) => {
+        if (err) console.log(err)
+        let id = req.params.id
+        let notes = JSON.parse(noteObj)
+        let deleteNote = notes.findIndex(n => n.id === id)
+        notes.splice(deleteNote, 1)
 
+        fs.writeFile(__dirname + '/db/db.json', JSON.stringify(notes), 'utf-8', (err) => {
+            if (err) console.log(err);
+            console.log("note deleted")
+        })
+    })
+    res.send()
+    
 });
 
 app.listen(PORT, err => {
